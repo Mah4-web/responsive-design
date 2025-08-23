@@ -4,6 +4,7 @@ console.log("Hello World!");
 // document has been fully loaded 
 document.addEventListener('DOMContentLoaded', () => {
 
+
     // Created my thumbnails, large images and and their titles
             const images = [
                 {
@@ -56,9 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     titleColor: `#B4C7D6`
                 },
             ];
-
-
-    let currentImageIndex = 0;
+let currentImageIndex = 0;
     
     // DOM elements
     const thumbnailContainer = document.getElementById('thumbnail-container');
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             thumbnailContainer.appendChild(thumbnailImg);
             
-            // Add event listeners for click and keyboard events
+            // Added event listeners for click and keyboard events
             thumbnailImg.addEventListener('click', () => {
                 currentImageIndex = index;
                 updateLargeImage(images[currentImageIndex]);
@@ -99,8 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    // Function to update the large image display
+// Function to update the large image display
     function updateLargeImage(image) {
         let largeImageElement = largeImageContainer.querySelector('img');
         
@@ -128,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Function to scroll the thumbnail container
+ // Function to scroll the thumbnail container
     function updateScrollBar(activeThumbnail) {
         const containerRect = thumbnailContainer.getBoundingClientRect();
         const thumbnailRect = activeThumbnail.getBoundingClientRect();
@@ -147,36 +145,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLargeImage(images[currentImageIndex]);
     }
 
-    // Event listeners for buttons
-    nextButton.addEventListener('click', () => selectNextImage(1));
-    prevButton.addEventListener('click', () => selectNextImage(-1));
-
-    // Touch and keyboard navigation
-    let touchstartX = 0;
-    let touchendX = 0;
-
-    largeImageContainer.addEventListener('touchstart', e => {
-        touchstartX = e.changedTouches[0].screenX;
-    });
-
-    largeImageContainer.addEventListener('touchend', e => {
-        touchendX = e.changedTouches[0].screenX;
-        let threshold = 50;
-        if (touchendX < touchstartX - threshold) {
-            selectNextImage(1);
-        } else if (touchendX > touchstartX + threshold) {
-            selectNextImage(-1);
-        }
-    });
-
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight') {
-            selectNextImage(1);
-        } else if (event.key === 'ArrowLeft') {
-            selectNextImage(-1);
-        }
-    });
-
-    // Start the application
-    init();
-});
+        });
