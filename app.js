@@ -144,5 +144,38 @@ let currentImageIndex = 0;
         currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
         updateLargeImage(images[currentImageIndex]);
     }
+  // Event listeners for buttons
+    nextButton.addEventListener('click', () => selectNextImage(1));
+    prevButton.addEventListener('click', () => selectNextImage(-1));
 
-        });
+    // Touch and keyboard navigation
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    largeImageContainer.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    });
+
+    largeImageContainer.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        let threshold = 50;
+        if (touchendX < touchstartX - threshold) {
+            selectNextImage(1);
+        } else if (touchendX > touchstartX + threshold) {
+            selectNextImage(-1);
+        }
+    });
+
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') {
+            selectNextImage(1);
+        } else if (event.key === 'ArrowLeft') {
+            selectNextImage(-1);
+        }
+    });
+
+    // Start the application
+    init();
+});
+
+        
